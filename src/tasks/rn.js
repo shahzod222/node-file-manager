@@ -1,4 +1,4 @@
-import fs from "fs";
+import fsPr from "fs/promises";
 import path from "path";
 
 export const rn = async (srcFilename, dstFilename) => {
@@ -6,7 +6,7 @@ export const rn = async (srcFilename, dstFilename) => {
     const srcFilenamePath = path.resolve(srcFilename);
     const dstFilenamePath = path.resolve(dstFilename);
 
-    fs.rename(srcFilenamePath, dstFilenamePath);
+    await fsPr.rename(srcFilenamePath, dstFilenamePath);
   } catch {
     throw new Error();
   }

@@ -1,18 +1,19 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import fsPr from "node:fs/promises";
+import path from "node:path";
 
 export const mv = async (filePath, dstPathDir) => {
   const srcFilenamePath = path.resolve(filePath);
   const dstFilenamePath = path.resolve(dstPathDir, filePath);
 
   try {
-    fs.access(srcFilenamePath);
+    await fsPr.access(srcFilenamePath);
   } catch {
     throw new Error();
   }
 
   try {
-    fs.access(dstPathDir);
+    await fsPr.access(dstPathDir);
   } catch {
     throw new Error();
   }
@@ -21,7 +22,7 @@ export const mv = async (filePath, dstPathDir) => {
   const ws = fs.createWriteStream(dstFilenamePath);
 
   ws.on("finish", async () => {
-    fs.rm(srcFilenamePath);
+    await fsPr.rm(srcFilenamePath);
   });
 
   rs.pipe(ws);
