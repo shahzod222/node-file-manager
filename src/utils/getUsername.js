@@ -1,4 +1,4 @@
-export const getUserName = () => {
+export const getUsername = () => {
   const userName = process.argv.slice(2).join("").split("=");
 
   if (userName[0].includes("username")) {
