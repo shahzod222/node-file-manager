@@ -1,4 +1,5 @@
 import fs from "fs";
+import fsPr from "fs/promises";
 import path from "path";
 import zlib from "zlib";
 
@@ -10,13 +11,13 @@ export const decompress = async (filePath, dstPathDir) => {
   );
 
   try {
-    fs.access(srcFilenamePath);
+    await fsPr.access(srcFilenamePath);
   } catch {
     throw new Error();
   }
 
   try {
-    fs.access(dstPathDir);
+    await fsPr.access(dstPathDir);
   } catch {
     throw new Error();
   }

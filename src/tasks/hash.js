@@ -1,4 +1,5 @@
 import fs from "fs";
+import fsPr from "node:fs/promises";
 import path from "path";
 import crypto from "crypto";
 
@@ -6,7 +7,7 @@ export const hash = async (filePath) => {
   const targetFilePath = path.resolve(filePath);
 
   try {
-    fs.access(targetFilePath);
+    await fsPr.access(targetFilePath);
   } catch (error) {
     throw new Error();
   }
@@ -20,7 +21,6 @@ export const hash = async (filePath) => {
 
   rs.pipe(hashStream).on("finish", () => {
     const hash = hashStream.digest("hex");
-
     console.log(hash);
   });
 };

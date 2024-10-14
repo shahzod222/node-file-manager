@@ -1,4 +1,5 @@
 import fs from "fs";
+import fsPr from "node:fs/promises";
 import path from "path";
 import zlib from "zlib";
 
@@ -7,13 +8,13 @@ export const compress = async (filePath, dstPathDir) => {
   const dstFilenamePath = path.resolve(dstPathDir, `${filePath}.br`);
 
   try {
-    fs.access(srcFilenamePath);
+    await fsPr.access(srcFilenamePath);
   } catch {
     throw new Error();
   }
 
   try {
-    fs.access(dstPathDir);
+    await fsPr.access(dstPathDir);
   } catch {
     throw new Error();
   }

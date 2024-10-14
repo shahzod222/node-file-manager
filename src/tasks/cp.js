@@ -1,4 +1,5 @@
 import fs from "fs";
+import fsPr from "node:fs/promises";
 import path from "path";
 
 export const cp = async (srcFilename, dstPathDir) => {
@@ -6,13 +7,13 @@ export const cp = async (srcFilename, dstPathDir) => {
   const dstFilenamePath = path.resolve(dstPathDir, srcFilename);
 
   try {
-    fs.access(srcFilenamePath);
+    await fsPr.access(srcFilenamePath);
   } catch {
     throw new Error();
   }
 
   try {
-    fs.access(dstPathDir);
+    await fsPr.access(dstPathDir);
   } catch {
     throw new Error();
   }
@@ -21,7 +22,7 @@ export const cp = async (srcFilename, dstPathDir) => {
   const ws = fs.createWriteStream(dstFilenamePath);
 
   ws.on("finish", () => {
-    console.log("File copied!");
+    console.log("File copied successfully");
   });
 
   rs.pipe(ws);
